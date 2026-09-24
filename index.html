@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tima Alves — Pas juste un prénom</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#07050c;
+    color:white;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 15% 15%,rgba(171,75,255,.20),transparent 30%),
+        radial-gradient(circle at 85% 25%,rgba(255,62,130,.18),transparent 28%),
+        radial-gradient(circle at 50% 90%,rgba(88,62,255,.15),transparent 35%);
+    z-index:-3;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    opacity:.04;
+    pointer-events:none;
+    z-index:20;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+canvas{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px 20px;
+    position:relative;
+}
+
+.hero-content{
+    max-width:900px;
+    animation:heroIn 1.5s ease;
+}
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.badge{
+    display:inline-block;
+    padding:10px 18px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:50px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(15px);
+    color:#d7c7df;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.hero h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(4.5rem,12vw,9rem);
+    line-height:.8;
+    margin:35px 0 25px;
+
+    background:linear-gradient(
+        120deg,
+        #fff,
+        #ffc7dc,
+        #bfa0ff,
+        #fff
+    );
+
+    background-size:300%;
+    -webkit-background-clip:text;
+    color:transparent;
+
+    animation:gradientMove 6s infinite alternate;
+}
+
+@keyframes gradientMove{
+    from{background-position:0%}
+    to{background-position:100%}
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(1.4rem,3vw,2rem);
+    line-height:1.5;
+    color:#d8cedd;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    color:white;
+    padding:14px 22px;
+    border-radius:50px;
+    font-weight:600;
+    background:linear-gradient(135deg,#ff4f8b,#8b55ff);
+    box-shadow:0 10px 35px rgba(180,70,180,.25);
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 45px rgba(220,70,170,.4);
+}
+
+.secondary{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:none;
+}
+
+.scroll{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:10px;
+    letter-spacing:3px;
+    color:#817589;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+    padding:100px 20px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title span{
+    color:#ff6d9d;
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+
+.section-title h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(3rem,6vw,5rem);
+    margin-top:10px;
+}
+
+.section-title p{
+    color:#9e91a8;
+    max-width:600px;
+    margin:15px auto;
+    line-height:1.7;
+}
+
+/* =========================
+   POEM CARDS
+========================= */
+
+.poem{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.card{
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:25px;
+    background:rgba(255,255,255,.045);
+    backdrop-filter:blur(18px);
+    overflow:hidden;
+    box-shadow:0 25px 70px rgba(0,0,0,.3);
+    transition:.4s;
+}
+
+.card:hover{
+    border-color:rgba(255,110,160,.3);
+    transform:translateY(-2px);
+}
+
+.card-header{
+    padding:23px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.card-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:25px;
+}
+
+.card-number{
+    font-size:10px;
+    letter-spacing:3px;
+    color:#95889e;
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.card-content{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:
+        max-height .8s ease,
+        opacity .5s ease,
+        padding .5s ease;
+}
+
+.card.open .card-content{
+    max-height:700px;
+    opacity:1;
+    padding:0 30px 30px;
+}
+
+.card-content p{
+    white-space:pre-line;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(1.25rem,2.5vw,1.65rem);
+    line-height:1.7;
+    color:#eee4f0;
+}
+
+.pink{
+    color:#ff719f;
+}
+
+.gold{
+    color:#f2c982;
+}
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote{
+    text-align:center;
+    margin:80px auto;
+    max-width:750px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(2rem,4vw,3rem);
+    line-height:1.25;
+}
+
+.quote span{
+    color:#ff6d9d;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final{
+    min-height:80vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.final-box{
+    max-width:850px;
+    text-align:center;
+    padding:60px 30px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:35px;
+    background:rgba(255,255,255,.04);
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.final-box span{
+    color:#ff6d9d;
+    font-size:11px;
+    letter-spacing:4px;
+}
+
+.final-box h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(3rem,8vw,6rem);
+    margin:20px 0;
+}
+
+.final-box p{
+    color:#a99eaf;
+    line-height:1.7;
+}
+
+.signature{
+    font-family:"Cormorant Garamond",serif;
+    font-size:3rem;
+    color:#ffd6e4;
+    margin:25px 0;
+}
+
+/* =========================
+   HEARTS
+========================= */
+
+.heart{
+    position:fixed;
+    bottom:-40px;
+    pointer-events:none;
+    z-index:50;
+    animation:heartFly 5s linear forwards;
+}
+
+@keyframes heartFly{
+    0%{
+        opacity:1;
+        transform:translateY(0) scale(1) rotate(0);
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translateY(-110vh)
+            translateX(var(--move))
+            scale(1.8)
+            rotate(30deg);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:4.7rem;
+    }
+
+    .hero p{
+        font-size:1.4rem;
+    }
+
+    .card-header{
+        padding:18px;
+    }
+
+    .card-content p{
+        font-size:1.25rem;
+    }
+
+    .card.open .card-content{
+        padding:0 20px 25px;
+    }
+
+    .card-header button{
+        padding:10px 14px;
+        font-size:12px;
+    }
+
+    section{
+        padding:70px 15px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✦ Une petite lettre digitale
+        </div>
+
+        <h1>Tima Alves</h1>
+
+        <p>
+            Pas juste un prénom.<br>
+            Une présence qu'on a envie de découvrir,
+            strophe après strophe.
+        </p>
+
+        <div class="buttons">
+
+            <button onclick="openPoem()">
+                ♡ Ouvrir le poème
+            </button>
+
+            <button class="secondary" onclick="toggleAll()">
+                ✦ Tout dévoiler
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="scroll">
+        DESCENDRE ↓
+    </div>
+
+</header>
+
+
+<!-- =========================
+     POEM
+========================= -->
+
+<section id="poem">
+
+<div class="container">
+
+    <div class="section-title">
+
+        <span>Tima Alves</span>
+
+        <h2>À lire doucement.</h2>
+
+        <p>
+            Chaque bouton cache une partie du texte.
+            Prends ton temps...
+            certaines phrases méritent qu'on les laisse arriver.
+        </p>
+
+    </div>
+
+
+    <div class="poem">
+
+
+        <!-- 01 -->
+
+        <div class="card open">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-number">
+                        01 — Le prénom
+                    </div>
+
+                    <div class="card-title">
+                        Une mélodie
+                    </div>
+                </div>
+
+                <button
+                    class="secondary reveal"
+                    onclick="toggleCard(this)"
+                >
+                    Masquer
+                </button>
+
+            </div>
+
+            <div class="card-content">
+
+                <p>
+<span class="pink">Tima Alves</span>,
+
+ton prénom sonne comme une mélodie
+qu'on n'oublie pas,
+
+et ton visage…
+comme une œuvre qu'on ne regarde jamais
+deux fois de la même façon.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 02 -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-number">
+                        02 — Le regard
+                    </div>
+
+                    <div class="card-title">
+                        Quelque chose de calme
+                    </div>
+                </div>
+
+                <button
+                    class="secondary reveal"
+                    onclick="toggleCard(this)"
+                >
+                    Dévoiler
+                </button>
+
+            </div>
+
+            <div class="card-content">
+
+                <p>
+Dans tes yeux,
+il y a quelque chose de calme,
+
+mais assez puissant
+pour faire taire le monde autour.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 03 -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-number">
+                        03 — Les détails
+                    </div>
+
+                    <div class="card-title">
+                        Rien n'est laissé au hasard
+                    </div>
+                </div>
+
+                <button
+                    class="secondary reveal"
+                    onclick="toggleCard(this)"
+                >
+                    Dévoiler
+                </button>
+
+            </div>
+
+            <div class="card-content">
+
+                <p>
+Tes tresses dessinent autour de toi
+comme si chaque détail
+avait été placé avec intention.
+
+Ton regard ne demande pas l'attention,
+
+<span class="pink">il la prend.</span>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 04 -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-number">
+                        04 — Les lèvres
+                    </div>
+
+                    <div class="card-title">
+                        Entre les lignes
+                    </div>
+                </div>
+
+                <button
+                    class="secondary reveal"
+                    onclick="toggleCard(this)"
+                >
+                    Dévoiler
+                </button>
+
+            </div>
+
+            <div class="card-content">
+
+                <p>
+Tes lèvres n'ont pas besoin de sourire
+pour raconter quelque chose.
+
+Et ta beauté n'est pas de celles
+qu'on décrit en trois mots,
+
+c'est celle qui te fait chercher
+les bons mots…
+
+et qui finit quand même
+par te laisser <span class="gold">sans réponse.</span>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 05 -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-number">
+                        05 — Ce petit quelque chose
+                    </div>
+
+                    <div class="card-title">
+                        Plus profond
+                    </div>
+                </div>
+
+                <button
+                    class="secondary reveal"
+                    onclick="toggleCard(this)"
+                >
+                    Dévoiler
+                </button>
+
+            </div>
+
+            <div class="card-content">
+
+                <p>
+<span class="pink">Tima</span>,
+
+t'es le genre de fille
+qu'on ne remarque pas seulement
+avec les yeux,
+
+mais avec quelque chose
+de plus profond.
+
+Une présence,
+une énergie,
+un petit quelque chose
+
+qu'on ne peut ni expliquer
+ni copier.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 06 -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-number">
+                        06 — Alves
+                    </div>
+
+                    <div class="card-title">
+                        La dernière strophe
+                    </div>
+                </div>
+
+                <button
+                    class="secondary reveal"
+                    onclick="toggleCard(this)"
+                >
+                    Dévoiler
+                </button>
+
+            </div>
+
+            <div class="card-content">
+
+                <p>
+Et <span class="pink">Alves</span>, franchement…
+
+si ton nom était un poème,
+
+je crois que j'aurais envie
+d'en écrire les vers
+
+jusqu'à oublier
+où commence la poésie
+
+et où commence la réalité.
+
+<span class="pink">❤️‍🔥</span>
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="quote">
+
+        « Certaines personnes entrent
+        dans une pièce. »
+
+        <br>
+
+        <span>
+            « D'autres changent l'ambiance
+            de la pièce. »
+        </span>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section class="final">
+
+<div class="final-box">
+
+    <span>
+        FIN… OU PEUT-ÊTRE PAS
+    </span>
+
+    <h2>
+        Pour Tima ♡
+    </h2>
+
+    <p>
+        Il fallait bien trouver un endroit
+        pour déposer ces quelques mots.
+    </p>
+
+    <div class="signature">
+        Tima Alves
+    </div>
+
+    <div class="buttons">
+
+        <button onclick="heartRain()">
+            ♡ Faire tomber des cœurs
+        </button>
+
+        <button
+            class="secondary"
+            onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        >
+            ↑ Revenir au début
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+    fait avec un peu de code,
+    beaucoup d'ambiance
+    et quelques mots pour Tima Alves.
+
+</footer>
+
+
+<script>
+
+/* =========================
+   REVEAL CARDS
+========================= */
+
+function toggleCard(button){
+
+    const card = button.closest(".card");
+
+    card.classList.toggle("open");
+
+    if(card.classList.contains("open")){
+        button.textContent = "Masquer";
+    }else{
+        button.textContent = "Dévoiler";
+    }
+
+}
+
+
+/* =========================
+   OPEN POEM
+========================= */
+
+function openPoem(){
+
+    document
+        .getElementById("poem")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =========================
+   TOGGLE ALL
+========================= */
+
+function toggleAll(){
+
+    const cards =
+        document.querySelectorAll(".card");
+
+    let open =
+        [...cards].some(
+            card => !card.classList.contains("open")
+        );
+
+    cards.forEach(card => {
+
+        card.classList.toggle("open",open);
+
+        const button =
+            card.querySelector(".reveal");
+
+        button.textContent =
+            open ? "Masquer" : "Dévoiler";
+
+    });
+
+}
+
+
+/* =========================
+   HEART RAIN
+========================= */
+
+function heartRain(){
+
+    const symbols = [
+        "♥",
+        "♡",
+        "❤",
+        "✦",
+        "💗",
+        "💖"
+    ];
+
+    for(let i=0;i<45;i++){
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            symbols[
+                Math.floor(
+                    Math.random()*symbols.length
+                )
+            ];
+
+        heart.style.left =
+            Math.random()*100 + "vw";
+
+        heart.style.setProperty(
+            "--move",
+            (Math.random()*200-100) + "px"
+        );
+
+        heart.style.fontSize =
+            (12 + Math.random()*25) + "px";
+
+        heart.style.animationDuration =
+            (3 + Math.random()*4) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(
+            () => heart.remove(),
+            7500
+        );
+
+    }
+
+}
+
+
+/* =========================
+   STARS
+========================= */
+
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
+
+let stars = [];
+
+function resizeCanvas(){
+
+    canvas.width =
+        window.innerWidth *
+        window.devicePixelRatio;
+
+    canvas.height =
+        window.innerHeight *
+        window.devicePixelRatio;
+
+    canvas.style.width =
+        window.innerWidth + "px";
+
+    canvas.style.height =
+        window.innerHeight + "px";
+
+    ctx.setTransform(
+        window.devicePixelRatio,
+        0,
+        0,
+        window.devicePixelRatio,
+        0,
+        0
+    );
+
+    stars = [];
+
+    for(let i=0;i<180;i++){
+
+        stars.push({
+
+            x:Math.random()*window.innerWidth,
+
+            y:Math.random()*window.innerHeight,
+
+            r:Math.random()*1.4+.2,
+
+            a:Math.random()*10,
+
+            speed:Math.random()*.02+.005
+
+        });
+
+    }
+
+}
+
+
+function animateStars(){
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+
+    stars.forEach(star => {
+
+        star.a += star.speed;
+
+        const opacity =
+            .2 +
+            Math.abs(
+                Math.sin(star.a)
+            )*.7;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.r,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle =
+            `rgba(255,235,250,${opacity})`;
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(
+        animateStars
+    );
+
+}
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+animateStars();
+
+
+/* =========================
+   CLICK EFFECT
+========================= */
+
+document.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target.closest("button"))
+            return;
+
+        const heart =
+            document.createElement("div");
+
+        heart.className =
+            "heart";
+
+        heart.textContent =
+            "♡";
+
+        heart.style.left =
+            e.clientX + "px";
+
+        heart.style.setProperty(
+            "--move",
+            (Math.random()*80-40)+"px"
+        );
+
+        heart.style.animationDuration =
+            "3s";
+
+        document.body.appendChild(
+            heart
+        );
+
+        setTimeout(
+            () => heart.remove(),
+            3500
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
