@@ -1,0 +1,94 @@
+// Prisma schema for the Estère Adousinda Alves birthday site.
+// Datasource: PostgreSQL (embedded-postgres in development, managed PG in prod).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Private administrator account (username + argon2 password hash).
+model AdminUser {
+  id                 String    @id @default(cuid())
+  username           String    @unique
+  passwordHash       String
+  mustChangePassword Boolean   @default(true)
+  lastLoginAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  sessions           Session[]
+}
+
+/// Server-side session. Only a SHA-256 hash of the cookie token is stored,
+/// so a database dump does not leak usable session tokens.
+model Session {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+/// Playful "birthday girl" unlock session for the private /surprise space.
+model SurpriseSession {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+/// Singleton row holding both the editable draft and the live published content.
+model SiteContent {
+  id          String    @id @default("main")
+  draft       Json
+  published   Json
+  publishedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
+/// Simple version history of published content (restore / rollback).
+model ContentRevision {
+  id        String   @id @default(cuid())
+  content   Json
+  label     String?
+  createdAt DateTime @default(now())
+}
+
+/// A photo or video managed from the admin panel.
+/// Records are the *draft* library; the public slideshow reads the media
+/// snapshot embedded in the published SiteContent, so changes stay private
+/// until "Confirm and publish" is pressed.
+model Media {
+  id          String    @id @default(cuid())
+  type        String // IMAGE | VIDEO
+  source      String // UPLOAD | URL
+  url         String? // when source = URL
+  storageKey  String? // relative path in STORAGE_DIR when source = UPLOAD
+  mimeType    String
+  size        Int?
+  title       String    @default("")
+  caption     String    @default("")
+  alt         String    @default("")
+  position    Int       @default(0)
+  isCover     Boolean   @default(false)
+  inSlideshow Boolean   @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([position])
+}
+
+/// Persistent brute-force protection for the admin login.
+model LoginAttempt {
+  key         String    @id
+  count       Int       @default(0)
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
+}
