@@ -1,0 +1,60 @@
+# ============================================================
+#  Render Blueprint — Estère Adousinda Alves birthday site
+#
+#  Deploy:  Render Dashboard -> New + -> Blueprint -> pick this repo -> Apply
+#
+#  What you must fill in yourself (marked `sync: false`):
+#    - ADMIN_BOOTSTRAP_PASSWORD  (the temporary admin password)
+#
+#  Render generates AUTH_SECRET for you and wires DATABASE_URL from the
+#  managed PostgreSQL created below.
+# ============================================================
+
+services:
+  - type: web
+    name: tima-birthday
+    runtime: node
+    plan: starter # a persistent disk requires a paid instance type
+    region: frankfurt # closest to Europe/West Africa — change if you prefer
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /
+    # `--include=dev` is required: Prisma, TypeScript and Tailwind are build tools.
+    buildCommand: npm ci --include=dev && npm run build
+    # Applies the schema and creates the admin account (idempotent: an existing
+    # admin is never overwritten, so your real password survives every deploy).
+    preDeployCommand: npm run db:deploy
+    startCommand: npm start
+    disk:
+      name: tima-media
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tima-birthday-db
+          property: connectionString
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: SESSION_TTL_HOURS
+        value: "12"
+      - key: SURPRISE_TTL_HOURS
+        value: "24"
+      - key: ADMIN_USERNAME
+        value: lemzo
+      - key: ADMIN_BOOTSTRAP_PASSWORD
+        sync: false # <- type the temporary password in the Render dashboard
+      - key: SURPRISE_NAME
+        value: Estère Adousinda Alves
+      - key: STORAGE_DIR
+        value: /var/data/uploads
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "25"
+
+databases:
+  - name: tima-birthday-db
+    plan: free
+    databaseName: tima_birthday
+    user: tima

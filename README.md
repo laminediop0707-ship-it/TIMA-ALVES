@@ -152,6 +152,10 @@ See `.env.example`. Key entries:
 
 ## Deployment
 
+> 🚀 **Étape par étape pour Render et Railway : [`DEPLOY.md`](./DEPLOY.md)**
+> (blueprint `render.yaml`, config `railway.json`, variables d'environnement,
+> disque persistant, checklist de vérification et dépannage.)
+
 The app is a standard Next.js server (`npm run build` then `npm start`), so it
 runs well on a small VPS with PM2 + nginx.
 

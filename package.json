@@ -16,6 +16,7 @@
     "prisma:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx scripts/bootstrap-admin.ts",
+    "db:deploy": "prisma db push --skip-generate && tsx scripts/bootstrap-admin.ts",
     "setup": "npm run db:start && npm run db:push && npm run db:seed"
   },
   "dependencies": {
@@ -28,7 +29,6 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@embedded-postgres/windows-x64": "^18.4.0-beta.17",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
@@ -43,6 +43,9 @@
     "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^2.1.9"
+  },
+  "optionalDependencies": {
+    "@embedded-postgres/windows-x64": "^18.4.0-beta.17"
   },
   "allowScripts": {
     "@prisma/client@5.22.0": true,
