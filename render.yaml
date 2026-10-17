@@ -8,6 +8,10 @@
 #
 #  Render generates AUTH_SECRET for you and wires DATABASE_URL from the
 #  managed PostgreSQL created below.
+#
+#  If Render refuses because a region is unavailable on your plan, delete the
+#  two `region:` lines and apply again (Render then uses its default region
+#  for both, which stays consistent).
 # ============================================================
 
 services:
@@ -56,5 +60,6 @@ services:
 databases:
   - name: tima-birthday-db
     plan: free
+    region: frankfurt # must match the web service region (internal connection)
     databaseName: tima_birthday
     user: tima
