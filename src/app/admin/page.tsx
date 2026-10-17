@@ -14,5 +14,7 @@ export default async function AdminPage() {
   const admin = await getAdminSession();
   if (admin) redirect("/admin/panel");
 
-  return <AdminLogin defaultUsername={"lemzo"} />;
+  // The admin username is intentionally not hard-coded or pre-filled: the
+  // credential lives only in the environment, never in the shipped HTML.
+  return <AdminLogin />;
 }

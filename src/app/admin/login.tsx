@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Starfield } from "@/components/effects";
 
-export function AdminLogin({ defaultUsername }: { defaultUsername: string }) {
+export function AdminLogin() {
   const router = useRouter();
-  const [username, setUsername] = useState(defaultUsername);
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
